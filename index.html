@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios de Arrays</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        select, button { margin: 10px 0; }
+        #output { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Ejercicios de Arrays</h1>
+    <select id="exerciseSelector">
+        <option value="">Seleccione un ejercicio</option>
+        <option value="1">Saludos</option>
+        <option value="2">Menor número</option>
+        <option value="3">Suma de todos los números</option>
+        <option value="4">Contiene elementos</option>
+        <option value="5">Encontrar índice</option>
+        <option value="6">Sam y Frodo</option>
+        <option value="7">Frutas</option>
+        <option value="8">Comida para monos</option>
+        <option value="9">Perros y gatos</option>
+        <option value="10">Chat</option>
+        <option value="11">Germinación</option>
+        <option value="12">Plantas</option>
+        <option value="13">Tragamonedas</option>
+        <option value="14">Revertir array</option>
+        <option value="15">Multiplicar números individuales</option>
+        <option value="16">Exterminador</option>
+        <option value="17">Arrays iguales</option>
+        <option value="18">Puntajes</option>
+        <option value="19">Piedra, papel, tijera III</option>
+        <option value="20">Recortar palabras</option>
+    </select>
+    <button onclick="runExercise()">Ejecutar</button>
+    <div id="output"></div>
+
+    <script>
+        function runExercise() {
+            const selector = document.getElementById("exerciseSelector");
+            const output = document.getElementById("output");
+            const exercise = selector.value;
+
+            output.innerHTML = ""; // Limpiar salida anterior
+
+            switch (exercise) {
+                case "1":
+                    const nombres = prompt("Ingrese nombres:").split(" ");
+                    nombres.forEach(nombre => output.innerHTML += `¡Hola ${nombre}!<br>`);
+                    break;
+                case "2":
+                    const numeros1 = prompt("Ingrese números:").split(" ").map(Number);
+                    const menor = Math.min(...numeros1);
+                    output.innerHTML += `El menor número es: ${menor}`;
+                    break;
+                case "3":
+                    const numeros2 = prompt("Ingrese números:").split(" ").map(Number);
+                    const suma = numeros2.reduce((acc, num) => acc + num, 0);
+                    output.innerHTML += `La suma de todos los números es: ${suma}`;
+                    break;
+                case "4":
+                    const valores = prompt("Ingrese valores:").split(" ");
+                    const valorBuscado = prompt("Ingrese valor a buscar:");
+                    const existe = valores.includes(valorBuscado);
+                    output.innerHTML += `El valor ${valorBuscado} ${existe ? "se encuentra" : "no se encuentra"} entre los valores originales.`;
+                    break;
+                case "5":
+                    const valores2 = prompt("Ingrese valores:").split(" ");
+                    const valorBuscado2 = prompt("Ingrese valor a buscar:");
+                    const indice = valores2.indexOf(valorBuscado2);
+                    if (indice !== -1) {
+                        output.innerHTML += `El valor ${valorBuscado2} se encuentra en el índice ${indice}`;
+                    } else {
+                        output.innerHTML += `El valor ${valorBuscado2} no se ha encontrado`;
+                    }
+                    break;
+                case "6":
+                    const nombres6 = prompt("Ingresar nombres:").split(" ");
+                    const samIndex = nombres6.indexOf("Sam");
+                    const frodoIndex = nombres6.indexOf("Frodo");
+                    if (Math.abs(samIndex - frodoIndex) === 1) {
+                        output.innerHTML += "Sam y Frodo están juntos, ¡Frodo está a salvo!";
+                    } else {
+                        output.innerHTML += "Sam y Frodo están separados, ¡Frodo está en peligro!";
+                    }
+                    break;
+                case "7":
+                    const frutas = prompt("Ingrese frutas:").split("");
+                    const conteo = {};
+                    frutas.forEach(fruta => {
+                        conteo[fruta] = (conteo[fruta] || 0) + 1;
+                    });
+                    output.innerHTML += `Hay ${conteo["🍎"] || 0} 🍎, ${conteo["🍐"] || 0} 🍐 y ${conteo["🍑"] || 0} 🍑`;
+                    break;
+                case "8":
+                    const entrada8 = prompt("Ingresar monos y bananas:").split("");
+                    const bananas8 = entrada8.filter(item => item === "🍌").length;
+                    const monos8 = entrada8.filter(item => item === "🐵").length;
+                    const cantidadBananas = parseInt(prompt("¿Cuántas bananas come un mono?:"));
+                    if (bananas8 >= monos8 * cantidadBananas) {
+                        output.innerHTML += "¡Hay suficientes bananas para los monos!";
+                    } else {
+                        output.innerHTML += "¡Oh no!¡No hay suficientes bananas para los monos! 😭";
+                    }
+                    break;
+                case "9":
+                    const entrada9 = prompt("Ingrese perros y gatos:").split("");
+                    const perros = entrada9.filter(animal => animal === "🐶").join("");
+                    const gatos = entrada9.filter(animal => animal === "🐱").join("");
+                    output.innerHTML += `Resultado: ${perros}${gatos}`;
+                    break;
+                case "10":
+                    const nombres10 = prompt("Ingrese nombres de usuarias:").split(" ");
+                    const cantidad10 = nombres10.length;
+                    if (cantidad10 === 1) {
+                        output.innerHTML += `${nombres10[0]} está conectada`;
+                    } else if (cantidad10 === 2) {
+                        output.innerHTML += `${nombres10[0]} y ${nombres10[1]} están conectadas`;
+                    } else {
+                        output.innerHTML += `${nombres10.slice(0, 2).join(", ")} y ${cantidad10 - 2} persona(s) más están conectadas`;
+                    }
+                    break;
+                case "11":
+                    const entrada11 = prompt("Ingrese flores y plantines:").split("");
+                    if (entrada11[0] !== "🌷" && entrada11[0] !== "🌻" && entrada11[0] !== "🌸") {
+                        output.innerHTML += "Error: Debe comenzar con una flor.";
+                    } else {
+                        const resultado = entrada11.map(planta => (planta === "🌱" ? entrada11[0] : planta));
+                        output.innerHTML += `¡Las flores han germinado!: ${resultado.join("")}`;
+                    }
+                    break;
+                case "12":
+                    const entrada12 = prompt("Ingrese plantas y oruga:").split("");
+                    const orugaIndex = entrada12.indexOf("🐛");
+                    const venenoIndex = entrada12.indexOf("💀");
+                    if (orugaIndex !== -1 && venenoIndex !== -1 && orugaIndex < venenoIndex) {
+                        const sobrevivientes = entrada12.slice(0, orugaIndex).concat(entrada12.slice(venenoIndex + 1));
+                        output.innerHTML += `Plantas sobrevivientes: ${sobrevivientes.join("")}`;
+                    } else {
+                        output.innerHTML += "No hay plantas sobrevivientes.";
+                    }
+                    break;
+                case "13":
+                    const simbolos = prompt("Ingrese símbolos:").split("").slice(0, 5);
+                    const sonIguales = simbolos.every(simbolo => simbolo === simbolos[0]);
+                    output.innerHTML += sonIguales ? "¡Felicitaciones! Has ganado" : "¡Has perdido! Inténtalo nuevamente";
+                    break;
+                case "14":
+                    const numeros3 = prompt("Ingrese números:").split(" ");
+                    const invertido = numeros3.reverse();
+                    output.innerHTML += `El array invertido es: [${invertido.join(", ")}]`;
+                    break;
+                case "15":
+                    const numeros4 = prompt("Ingrese números:").split(" ").map(Number);
+                    const multiplicador = parseInt(prompt("Ingrese multiplicador:"));
+                    const resultante = numeros4.map(num => num * multiplicador);
+                    output.innerHTML += `El array resultante es: [${resultante.join(", ")}]`;
+                    break;
+                case "16":
+                    const animales = prompt("Ingrese animales:").split(" ");
+                    const animalesFiltrados = animales.filter(animal => animal !== "🦟" && animal !== "🦂");
+                    output.innerHTML += `Animales sin insectos: [${animalesFiltrados.join(", ")}]`;
+                    break;
+                case "17":
+                    const lista1 = prompt("Ingrese valores de lista 1:").split(" ");
+                    const lista2 = prompt("Ingrese valores de lista 2:").split(" ");
+                    output.innerHTML += JSON.stringify(lista1) === JSON.stringify(lista2) ? "Las listas son iguales." : "Las listas son diferentes.";
+                    break;
+                case "18":
+                    const jugadora1 = prompt("Ingrese nombre jugadora 1:");
+                    const puntajes1 = prompt(`Ingrese puntajes de ${jugadora1}:`).split(" ").map(Number);
+                    const jugadora2 = prompt("Ingrese nombre jugadora 2:");
+                    const puntajes2 = prompt(`Ingrese puntajes de ${jugadora2}:`).split(" ").map(Number);
+                    let puntos1 = 0;
+                    let puntos2 = 0;
+                    puntajes1.forEach((puntaje, index) => {
+                        if (puntaje > puntajes2[index]) {
+                            puntos1++;
+                        } else if (puntaje < puntajes2[index]) {
+                            puntos2++;
+                        }
+                    });
+                    output.innerHTML += `Resultado: ${puntos1} (${jugadora1}) vs ${puntos2} (${jugadora2})<br>`;
+                    output.innerHTML += `Ganadora: ${puntos1 > puntos2 ? jugadora1 : jugadora2}`;
+                    break;
+                case "19":
+                    const jugadora1_19 = prompt("Ingrese nombre jugadora 1:");
+                    const jugadas1 = prompt(`Ingrese jugadas de ${jugadora1_19}:`).split(" ");
+                    const jugadora2_19 = prompt("Ingrese nombre jugadora 2:");
+                    const jugadas2_19 = prompt(`Ingrese jugadas de ${jugadora2_19}:`).split(" ");
+                    let puntos1_19 = 0;
+                    let puntos2_19 = 0;
+                    jugadas1.forEach((jugada, index) => {
+                        if (jugada === jugadas2_19[index]) return;
+                        if (
+                            (jugada === "piedra" && jugadas2_19[index] === "tijera") ||
+                            (jugada === "papel" && jugadas2_19[index] === "piedra") ||
+                            (jugada === "tijera" && jugadas2_19[index] === "papel")
+                        ) {
+                            puntos1_19++;
+                        } else {
+                            puntos2_19++;
+                        }
+                    });
+                    output.innerHTML += `Resultado: ${puntos1_19} (${jugadora1_19}) vs ${puntos2_19} (${jugadora2_19})<br>`;
+                    output.innerHTML += `Ganadora: ${puntos1_19 > puntos2_19 ? jugadora1_19 : jugadora2_19}`;
+                    break;
+                case "20":
+                    const palabras = prompt("Ingrese palabras:").split(" ");
+                    const cantidad = parseInt(prompt("Ingrese cantidad de caracteres permitidos:"));
+                    const recortadas = palabras.map(palabra => palabra.slice(0, cantidad));
+                    output.innerHTML += `Las palabras recortadas son: ${recortadas.join(" ")}`;
+                    break;
+                default:
+                    output.innerHTML += "Seleccione un ejercicio válido.";
+            }
+        }
+    </script>
+</body>
+</html>
